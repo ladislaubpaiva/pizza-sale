@@ -6,22 +6,25 @@ const selectorAll = (element) => {
 };
 let modalQt = 1;
 let modal = selector('.pizzaWindowArea');
+let price;
 pizzaJson.map((item, index) => {
   let pizzaItem = selector('.models .pizza-item').cloneNode(true);
   pizzaItem.setAttribute('data-key', index);
   pizzaItem.querySelector('.pizza-item--img img').src = item.img;
   pizzaItem.querySelector('.pizza-item--desc').innerText = item.description;
   pizzaItem.querySelector('.pizza-item--name').innerText = item.name;
-  pizzaItem.querySelector(
-    '.pizza-item--price'
-  ).innerText = `$ ${item.price.toFixed(2)}`;
+  price = item.price;
+  pizzaItem.querySelector('.pizza-item--price').innerText = `$ ${price.toFixed(
+    2
+  )}`;
   pizzaItem.querySelector('a').addEventListener('click', (event) => {
     event.preventDefault();
     let key = event.target.closest('.pizza-item').getAttribute('data-key');
-    selector('.pizzaBig img').src = item.img;
-    selector('.pizzaInfo h1').innerText = item.name;
-    selector('.pizzaInfo--desc').innerText = item.description;
-    selector('.pizzaInfo--actualPrice').innerText = `$${item.price.toFixed(2)}`;
+    selector('.pizzaBig img').src = pizzaJson[key].img;
+    selector('.pizzaInfo h1').innerText = pizzaJson[key].name;
+    selector('.pizzaInfo--desc').innerText = pizzaJson[key].description;
+    price = pizzaJson[key].price;
+    selector('.pizzaInfo--actualPrice').innerText = `$${price.toFixed(2)}`;
     selector('.pizzaInfo--size.selected').classList.remove('selected');
     selectorAll('.pizzaInfo--size').forEach((size, index) => {
       if (index == 1) size.classList.add('selected');
@@ -30,17 +33,14 @@ pizzaJson.map((item, index) => {
         selector('.pizzaInfo--size.selected').classList.remove('selected');
         size.classList.add('selected');
         if (index == 0) {
-          selector('.pizzaInfo--actualPrice').innerText = `$${(
-            item.price * 0.7
-          ).toFixed(2)}`;
+          price = (pizzaJson[key].price * 0.7).toFixed(2);
+          selector('.pizzaInfo--actualPrice').innerText = `$${price}`;
         } else if (index == 1) {
-          selector(
-            '.pizzaInfo--actualPrice'
-          ).innerText = `$${item.price.toFixed(2)}`;
+          price = (pizzaJson[key].price * 1).toFixed(2);
+          selector('.pizzaInfo--actualPrice').innerText = `$${price}`;
         } else {
-          selector('.pizzaInfo--actualPrice').innerText = `$${(
-            item.price * 1.3
-          ).toFixed(2)}`;
+          price = (pizzaJson[key].price * 1.3).toFixed(2);
+          selector('.pizzaInfo--actualPrice').innerText = `$${price}`;
         }
       });
     });
@@ -68,9 +68,6 @@ selectorAll('.pizzaInfo--cancelButton,.pizzaInfo--cancelMobileButton').forEach(
 );
 
 selector('.pizzaInfo--qtmais').addEventListener('click', () => {
-  if (modalQt < 1) {
-    modalQt = 1;
-  }
   modalQt++;
   selector('.pizzaInfo--qt').innerText = modalQt;
 });
