@@ -15,7 +15,6 @@ pizzaJson.map((item, index) => {
   pizzaItem.querySelector(
     '.pizza-item--price'
   ).innerText = `$ ${item.price.toFixed(2)}`;
-  //
   pizzaItem.querySelector('a').addEventListener('click', (event) => {
     event.preventDefault();
     let key = event.target.closest('.pizza-item').getAttribute('data-key');
@@ -25,12 +24,27 @@ pizzaJson.map((item, index) => {
     selector('.pizzaInfo--actualPrice').innerText = `$${item.price.toFixed(2)}`;
     selector('.pizzaInfo--size.selected').classList.remove('selected');
     selectorAll('.pizzaInfo--size').forEach((size, index) => {
-      if (index == 2) size.classList.add('selected');
+      if (index == 1) size.classList.add('selected');
       size.querySelector('span').innerText = item.sizes[index];
+      size.addEventListener('click', () => {
+        selector('.pizzaInfo--size.selected').classList.remove('selected');
+        size.classList.add('selected');
+        if (index == 0) {
+          selector('.pizzaInfo--actualPrice').innerText = `$${(
+            item.price * 0.7
+          ).toFixed(2)}`;
+        } else if (index == 1) {
+          selector(
+            '.pizzaInfo--actualPrice'
+          ).innerText = `$${item.price.toFixed(2)}`;
+        } else {
+          selector('.pizzaInfo--actualPrice').innerText = `$${(
+            item.price * 1.3
+          ).toFixed(2)}`;
+        }
+      });
     });
-    {
-      selector('.pizzaInfo--qt').innerText = modalQt;
-    }
+    selector('.pizzaInfo--qt').innerText = modalQt = 1;
     modal.style.display = 'flex';
     setTimeout(() => {
       modal.style.opacity = 1;
@@ -53,26 +67,16 @@ selectorAll('.pizzaInfo--cancelButton,.pizzaInfo--cancelMobileButton').forEach(
   }
 );
 
-{
-  selector('.pizzaInfo--qtmais').addEventListener('click', () => {
-    if (modalQt < 1) {
-      modalQt = 1;
-    }
-    modalQt++;
+selector('.pizzaInfo--qtmais').addEventListener('click', () => {
+  if (modalQt < 1) {
+    modalQt = 1;
+  }
+  modalQt++;
+  selector('.pizzaInfo--qt').innerText = modalQt;
+});
+selector('.pizzaInfo--qtmenos').addEventListener('click', () => {
+  if (modalQt > 1) {
+    modalQt--;
     selector('.pizzaInfo--qt').innerText = modalQt;
-  });
-  selector('.pizzaInfo--qtmenos').addEventListener('click', () => {
-    if (modalQt > 1) {
-      modalQt--;
-      selector('.pizzaInfo--qt').innerText = modalQt;
-    }
-  });
-}
-{
-  selectorAll('.pizzaInfo--size').forEach((size, index) => {
-    size.addEventListener('click', (event) => {
-      selector('.pizzaInfo--size.selected').classList.remove('selected');
-      size.classList.add('selected');
-    });
-  });
-}
+  }
+});
