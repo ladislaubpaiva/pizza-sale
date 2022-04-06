@@ -62,4 +62,13 @@ let pizzaJson = [
     description:
       'Description of the pizza in more than one line, very cool very interesting',
   },
+  {
+    id: 8,
+    name: 'Agatsuma Zenitsu',
+    img: 'images/pizza8.png',
+    price: 9.36,
+    sizes: ['180g', '530g', '860g'],
+    description:
+      'Description of the pizza in more than one line, very cool very interesting',
+  },
 ];
