@@ -170,19 +170,19 @@ pizzaJson.map((item, index) => {
         if (key == 'Enter') {
           switch (promo) {
             case 'LADIS':
-              priceDiscount(0.1);
+              priceDiscount(0.05);
               total = (subTotal - discount).toFixed(2);
               selector('span#discount').innerText = `$ ${discount}`;
               selector('span#total').innerText = `$ ${total}`;
               break;
             case 'PAIVA':
-              priceDiscount(0.2);
+              priceDiscount(0.1);
               total = (subTotal - discount).toFixed(2);
               selector('span#discount').innerText = `$ ${discount}`;
               selector('span#total').innerText = `$ ${total}`;
               break;
             case 'ANIME':
-              priceDiscount(0.3);
+              priceDiscount(0.2);
               total = (subTotal - discount).toFixed(2);
               selector('span#discount').innerText = `$ ${discount}`;
               selector('span#total').innerText = `$ ${total}`;
